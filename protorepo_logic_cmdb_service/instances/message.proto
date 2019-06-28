@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package instances;
+import "github.com/mwitkow/go-proto-validators/validator.proto";
+import "google/protobuf/struct.proto";
+
+message InstanceID {
+    string object_id = 1 [(validator.field) = {regex: ".*"}];
+    string instance_id = 2 [(validator.field) = {regex: ".*"}];
+    int32 version = 3;
+}
+
+message Instance {
+    string object_id = 1 [(validator.field) = {regex: ".*"}];
+    google.protobuf.Struct data = 2 [(validator.field) = {msg_exists : true}];
+}
+
+message SkipLimit {
+    int32 skip = 1 [(validator.field) = {int_gt: 0 int_lt: 3000}];
+    int32 limit = 2 [(validator.field) = {int_gt: 0 int_lt: 100}];
+}
+
+message Count {
+    int32 count = 1;
+}

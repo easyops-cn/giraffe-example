@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package instances;
+import "message.proto";
+import "github.com/easyops-cn/protobuf/giraffeproto/giraffe.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/empty.proto";
+
+service rpc {
+    rpc GetInstance(InstanceID) returns (google.protobuf.Struct) {
+        option( giraffeproto.http ) = {
+            get: "/object/:object_id/instance/:instance_id"
+        };
+        option( giraffeproto.contract ) = {
+            name: "/instance.rpc/GetInstance"
+            version: "V1.0"
+        };
+    };
+    rpc CreateInstance(Instance) returns (InstanceID) {
+        option( giraffeproto.http ) = {
+            post: "/object/:object_id/instance"
+            body: "data"
+        };
+        option( giraffeproto.contract ) = {
+            name: "/instance.rpc/CreateInstance"
+            version: "V1.0"
+        };
+    };
+    rpc DeleteInstance(InstanceID) returns (google.protobuf.Empty) {
+        option( giraffeproto.http ) = {
+            delete: "/object/:object_id/instance/:instance_id"
+        };
+        option( giraffeproto.contract ) = {
+            name: "/instance.rpc/DeleteInstance"
+            version: "V1.0"
+        };
+    }
+}
