@@ -4,13 +4,11 @@
 package instances
 
 import (
-	context "context"
 	fmt "fmt"
-	giraffe_micro "github.com/easyops-cn/giraffe-micro"
-	_ "github.com/easyops-cn/protobuf/giraffeproto"
+	_ "github.com/easyops-cn/go-proto-giraffe"
 	proto "github.com/gogo/protobuf/proto"
 	types "github.com/gogo/protobuf/types"
-	io "io"
+	_ "github.com/mwitkow/go-proto-validators"
 	math "math"
 )
 
@@ -25,161 +23,231 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion2 // please upgrade the proto package
 
+type InstanceID struct {
+	XObjectId            string   `protobuf:"bytes,1,opt,name=_object_id,json=ObjectId,proto3" json:"_object_id,omitempty"`
+	InstanceId           string   `protobuf:"bytes,2,opt,name=instance_id,json=instanceId,proto3" json:"instance_id,omitempty"`
+	Version              int32    `protobuf:"varint,3,opt,name=version,proto3" json:"version,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *InstanceID) Reset()         { *m = InstanceID{} }
+func (m *InstanceID) String() string { return proto.CompactTextString(m) }
+func (*InstanceID) ProtoMessage()    {}
+func (*InstanceID) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a0b84a42fa06f626, []int{0}
+}
+func (m *InstanceID) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_InstanceID.Unmarshal(m, b)
+}
+func (m *InstanceID) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_InstanceID.Marshal(b, m, deterministic)
+}
+func (m *InstanceID) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_InstanceID.Merge(m, src)
+}
+func (m *InstanceID) XXX_Size() int {
+	return xxx_messageInfo_InstanceID.Size(m)
+}
+func (m *InstanceID) XXX_DiscardUnknown() {
+	xxx_messageInfo_InstanceID.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_InstanceID proto.InternalMessageInfo
+
+func (m *InstanceID) GetXObjectId() string {
+	if m != nil {
+		return m.XObjectId
+	}
+	return ""
+}
+
+func (m *InstanceID) GetInstanceId() string {
+	if m != nil {
+		return m.InstanceId
+	}
+	return ""
+}
+
+func (m *InstanceID) GetVersion() int32 {
+	if m != nil {
+		return m.Version
+	}
+	return 0
+}
+
+type Instance struct {
+	ObjectId             string        `protobuf:"bytes,1,opt,name=object_id,json=objectId,proto3" json:"object_id,omitempty"`
+	Data                 *types.Struct `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
+	XXX_unrecognized     []byte        `json:"-"`
+	XXX_sizecache        int32         `json:"-"`
+}
+
+func (m *Instance) Reset()         { *m = Instance{} }
+func (m *Instance) String() string { return proto.CompactTextString(m) }
+func (*Instance) ProtoMessage()    {}
+func (*Instance) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a0b84a42fa06f626, []int{1}
+}
+func (m *Instance) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Instance.Unmarshal(m, b)
+}
+func (m *Instance) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Instance.Marshal(b, m, deterministic)
+}
+func (m *Instance) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Instance.Merge(m, src)
+}
+func (m *Instance) XXX_Size() int {
+	return xxx_messageInfo_Instance.Size(m)
+}
+func (m *Instance) XXX_DiscardUnknown() {
+	xxx_messageInfo_Instance.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Instance proto.InternalMessageInfo
+
+func (m *Instance) GetObjectId() string {
+	if m != nil {
+		return m.ObjectId
+	}
+	return ""
+}
+
+func (m *Instance) GetData() *types.Struct {
+	if m != nil {
+		return m.Data
+	}
+	return nil
+}
+
+type SkipLimit struct {
+	Skip                 int32    `protobuf:"varint,1,opt,name=skip,proto3" json:"skip,omitempty"`
+	Limit                int32    `protobuf:"varint,2,opt,name=limit,proto3" json:"limit,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *SkipLimit) Reset()         { *m = SkipLimit{} }
+func (m *SkipLimit) String() string { return proto.CompactTextString(m) }
+func (*SkipLimit) ProtoMessage()    {}
+func (*SkipLimit) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a0b84a42fa06f626, []int{2}
+}
+func (m *SkipLimit) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SkipLimit.Unmarshal(m, b)
+}
+func (m *SkipLimit) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SkipLimit.Marshal(b, m, deterministic)
+}
+func (m *SkipLimit) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SkipLimit.Merge(m, src)
+}
+func (m *SkipLimit) XXX_Size() int {
+	return xxx_messageInfo_SkipLimit.Size(m)
+}
+func (m *SkipLimit) XXX_DiscardUnknown() {
+	xxx_messageInfo_SkipLimit.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SkipLimit proto.InternalMessageInfo
+
+func (m *SkipLimit) GetSkip() int32 {
+	if m != nil {
+		return m.Skip
+	}
+	return 0
+}
+
+func (m *SkipLimit) GetLimit() int32 {
+	if m != nil {
+		return m.Limit
+	}
+	return 0
+}
+
+type Count struct {
+	Count                int32    `protobuf:"varint,1,opt,name=count,proto3" json:"count,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Count) Reset()         { *m = Count{} }
+func (m *Count) String() string { return proto.CompactTextString(m) }
+func (*Count) ProtoMessage()    {}
+func (*Count) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a0b84a42fa06f626, []int{3}
+}
+func (m *Count) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Count.Unmarshal(m, b)
+}
+func (m *Count) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Count.Marshal(b, m, deterministic)
+}
+func (m *Count) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Count.Merge(m, src)
+}
+func (m *Count) XXX_Size() int {
+	return xxx_messageInfo_Count.Size(m)
+}
+func (m *Count) XXX_DiscardUnknown() {
+	xxx_messageInfo_Count.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Count proto.InternalMessageInfo
+
+func (m *Count) GetCount() int32 {
+	if m != nil {
+		return m.Count
+	}
+	return 0
+}
+
+func init() {
+	proto.RegisterType((*InstanceID)(nil), "instances.InstanceID")
+	proto.RegisterType((*Instance)(nil), "instances.Instance")
+	proto.RegisterType((*SkipLimit)(nil), "instances.SkipLimit")
+	proto.RegisterType((*Count)(nil), "instances.Count")
+}
+
 func init() { proto.RegisterFile("service.proto", fileDescriptor_a0b84a42fa06f626) }
 
 var fileDescriptor_a0b84a42fa06f626 = []byte{
-	// 327 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x2d, 0x4e, 0x2d, 0x2a,
-	0xcb, 0x4c, 0x4e, 0xd5, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0xcc, 0xcc, 0x2b, 0x2e, 0x49,
-	0xcc, 0x4b, 0x4e, 0x2d, 0x96, 0xe2, 0xcd, 0x4d, 0x2d, 0x2e, 0x4e, 0x4c, 0x87, 0xca, 0x48, 0x59,
-	0xa6, 0x67, 0x96, 0x64, 0x94, 0x26, 0xe9, 0x25, 0xe7, 0xe7, 0xea, 0xa7, 0x26, 0x16, 0x57, 0xe6,
-	0x17, 0x14, 0xeb, 0x26, 0xe7, 0xe9, 0x83, 0x25, 0x93, 0x4a, 0xd3, 0xf4, 0xd3, 0x33, 0x8b, 0x12,
-	0xd3, 0xd2, 0x52, 0xc1, 0x7c, 0x18, 0x07, 0xaa, 0x55, 0x26, 0x3d, 0x3f, 0x3f, 0x3d, 0x27, 0x15,
-	0xa1, 0xb6, 0xb8, 0xa4, 0xa8, 0x34, 0xb9, 0x04, 0x2a, 0x2b, 0x8d, 0x2e, 0x9b, 0x9a, 0x5b, 0x50,
-	0x52, 0x09, 0x91, 0x34, 0xba, 0xc0, 0xcc, 0xc5, 0x5c, 0x54, 0x90, 0x2c, 0x34, 0x8d, 0x91, 0x8b,
-	0xdb, 0x3d, 0xb5, 0xc4, 0x13, 0xea, 0x3a, 0x21, 0x51, 0x3d, 0xb8, 0x43, 0xf5, 0x60, 0x82, 0x9e,
-	0x2e, 0x52, 0xe2, 0x7a, 0x10, 0xc3, 0xf4, 0x60, 0x86, 0xe9, 0x05, 0x83, 0xad, 0x52, 0x0a, 0x3f,
-	0xb4, 0xf4, 0xc9, 0x64, 0x26, 0x45, 0x2e, 0x49, 0x7d, 0x98, 0x3e, 0xbd, 0xa2, 0x82, 0x64, 0x7d,
-	0x64, 0x23, 0x59, 0xc2, 0x0c, 0xf5, 0x0c, 0x9a, 0x2e, 0x3f, 0x99, 0xcc, 0xa4, 0x25, 0xa4, 0xa1,
-	0x9f, 0x9f, 0x94, 0x95, 0x9a, 0x5c, 0xa2, 0x6f, 0x05, 0xa1, 0xe3, 0x33, 0x53, 0xe0, 0x1a, 0xf5,
-	0xad, 0x60, 0xac, 0xf8, 0xcc, 0x14, 0xa1, 0x89, 0x8c, 0x5c, 0x7c, 0xce, 0x45, 0xa9, 0x89, 0x25,
-	0xa9, 0x70, 0x83, 0x84, 0xb1, 0xb8, 0x4d, 0x0a, 0xbb, 0x83, 0x95, 0x82, 0xc1, 0xee, 0x52, 0xe1,
-	0x92, 0x41, 0x75, 0x17, 0x9a, 0x89, 0x08, 0xa7, 0x29, 0x2b, 0x49, 0xe3, 0x71, 0x9a, 0x15, 0x4b,
-	0x4a, 0x62, 0x49, 0xa2, 0xd0, 0x6c, 0x46, 0x2e, 0x3e, 0x97, 0xd4, 0x9c, 0x54, 0x24, 0x13, 0x70,
-	0x84, 0x97, 0x18, 0x46, 0x78, 0xb9, 0x82, 0x02, 0x5f, 0x29, 0x0a, 0xbb, 0xb3, 0xd0, 0x0c, 0x45,
-	0x0a, 0x31, 0x2d, 0xa2, 0x43, 0xcc, 0x89, 0xe7, 0xc4, 0x23, 0x39, 0xc6, 0x0b, 0x8f, 0xe4, 0x18,
-	0x1f, 0x3c, 0x92, 0x63, 0x4c, 0x62, 0x03, 0xdb, 0x6c, 0x0c, 0x08, 0x00, 0x00, 0xff, 0xff, 0x36,
-	0xb5, 0x07, 0x3e, 0x88, 0x02, 0x00, 0x00,
+	// 511 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x52, 0x4d, 0x6e, 0xd3, 0x40,
+	0x14, 0xae, 0x9d, 0xb8, 0xc4, 0x2f, 0xa2, 0xaa, 0x86, 0x9f, 0x9a, 0xb4, 0x25, 0xc1, 0xfc, 0xa8,
+	0x2d, 0xca, 0x0c, 0xb4, 0x88, 0x45, 0x96, 0x69, 0x11, 0x0a, 0x42, 0x42, 0x72, 0x24, 0x84, 0xc4,
+	0xa2, 0x72, 0xec, 0x89, 0x19, 0x92, 0x78, 0x2c, 0xcf, 0x24, 0x55, 0xb6, 0xdc, 0x00, 0x75, 0xc1,
+	0x86, 0x2d, 0x77, 0x60, 0xcd, 0x11, 0xe0, 0x00, 0x91, 0xa2, 0x1e, 0x04, 0x65, 0x1c, 0x3b, 0x26,
+	0x4d, 0x51, 0x57, 0xf6, 0xcc, 0x7b, 0xef, 0xfb, 0x7b, 0x03, 0x37, 0x05, 0x8d, 0x47, 0xcc, 0xa3,
+	0x38, 0x8a, 0xb9, 0xe4, 0xc8, 0x64, 0xa1, 0x90, 0x6e, 0xe8, 0x51, 0x51, 0x79, 0x19, 0x30, 0xf9,
+	0x69, 0xd8, 0xc1, 0x1e, 0x1f, 0x90, 0xc1, 0x19, 0x93, 0x3d, 0x7e, 0x46, 0x02, 0x5e, 0x57, 0x7d,
+	0xf5, 0x91, 0xdb, 0x67, 0xbe, 0x2b, 0x79, 0x2c, 0x48, 0xf6, 0x9b, 0x40, 0x54, 0x5e, 0xe4, 0xe6,
+	0xa8, 0x2b, 0xc6, 0x3c, 0x12, 0x75, 0x2f, 0x5c, 0x8c, 0x06, 0x2c, 0x76, 0xbb, 0x5d, 0x4a, 0xe6,
+	0xdf, 0xf9, 0xd4, 0x4e, 0xc0, 0x79, 0xd0, 0xa7, 0x44, 0x9d, 0x3a, 0xc3, 0x2e, 0x11, 0x32, 0x1e,
+	0x7a, 0x72, 0x5e, 0xdd, 0x5e, 0xae, 0xd2, 0x41, 0x24, 0xc7, 0x49, 0xd1, 0x1e, 0x03, 0xb4, 0xe6,
+	0xaa, 0x5b, 0x27, 0xe8, 0x09, 0xc0, 0x29, 0xef, 0x7c, 0xa6, 0x9e, 0x3c, 0x65, 0xbe, 0xa5, 0xd5,
+	0xb4, 0x3d, 0xb3, 0x59, 0x9a, 0x4e, 0xaa, 0x45, 0xd0, 0xf1, 0x81, 0x53, 0x7a, 0xa7, 0x4a, 0x2d,
+	0x1f, 0xed, 0x43, 0x39, 0xf5, 0x3a, 0x6b, 0xd4, 0x97, 0x1a, 0x21, 0x2d, 0xb6, 0x7c, 0x64, 0xc1,
+	0x8d, 0x11, 0x8d, 0x05, 0xe3, 0xa1, 0x55, 0xa8, 0x69, 0x7b, 0x86, 0x93, 0x1e, 0xed, 0x2e, 0x94,
+	0x52, 0x6a, 0xf4, 0x18, 0xcc, 0xff, 0xf0, 0xf2, 0x94, 0xf7, 0x08, 0x8a, 0xbe, 0x2b, 0x5d, 0x45,
+	0x58, 0x3e, 0xdc, 0xc2, 0x89, 0x33, 0x9c, 0x3a, 0xc3, 0x6d, 0xe5, 0xbb, 0xb9, 0x3e, 0x9d, 0x54,
+	0xf5, 0x9a, 0xe6, 0xa8, 0x66, 0xfb, 0x0d, 0x98, 0xed, 0x1e, 0x8b, 0xde, 0xb2, 0x01, 0x93, 0x68,
+	0x17, 0x8a, 0xa2, 0xc7, 0x22, 0xc5, 0x61, 0x34, 0xcd, 0xe9, 0xa4, 0x6a, 0x6c, 0xae, 0x59, 0x3f,
+	0xb7, 0x1c, 0x75, 0x8d, 0xee, 0x83, 0xd1, 0x9f, 0xf5, 0x29, 0x06, 0x23, 0xd1, 0xb0, 0xb9, 0x66,
+	0xf9, 0x4e, 0x72, 0x6d, 0xef, 0x82, 0x71, 0xcc, 0x87, 0xa1, 0x44, 0xb7, 0xc1, 0xf0, 0x66, 0x3f,
+	0x09, 0x90, 0x93, 0x1c, 0x0e, 0x7f, 0x17, 0xa0, 0x10, 0x47, 0x1e, 0xfa, 0xa6, 0x41, 0xf9, 0x35,
+	0x95, 0x99, 0xbd, 0x3b, 0x38, 0x7b, 0x1a, 0x78, 0x11, 0x77, 0xe5, 0x2a, 0x03, 0xf6, 0x87, 0x5f,
+	0x3f, 0x2e, 0xce, 0xf5, 0x07, 0x70, 0x8f, 0xa4, 0x73, 0x38, 0x8e, 0x3c, 0x92, 0x87, 0x2c, 0xbe,
+	0x7f, 0x8e, 0x9f, 0x7d, 0xf9, 0x73, 0x71, 0xae, 0x3f, 0x45, 0xfb, 0x24, 0x49, 0x88, 0x34, 0x16,
+	0xdb, 0xcb, 0x26, 0x49, 0x23, 0xb7, 0x2a, 0xf4, 0x55, 0x83, 0x8d, 0xe3, 0x98, 0xba, 0x92, 0x66,
+	0x48, 0xb7, 0x56, 0x88, 0xab, 0xac, 0x56, 0x6c, 0xb7, 0x95, 0xb0, 0x47, 0xb0, 0xf3, 0xaf, 0xb0,
+	0x25, 0xc4, 0x85, 0xb6, 0x87, 0xf6, 0x76, 0xa6, 0xed, 0xb2, 0xb4, 0x86, 0x5a, 0x10, 0xfa, 0xae,
+	0xc1, 0xc6, 0x09, 0xed, 0xd3, 0x1c, 0xc2, 0x15, 0x81, 0xdd, 0xbd, 0x14, 0xd8, 0xab, 0xd9, 0x5b,
+	0xb6, 0x3f, 0xae, 0x96, 0xb5, 0x04, 0x9a, 0x8b, 0xec, 0xe0, 0xfa, 0x91, 0x75, 0xd6, 0x15, 0xd9,
+	0xd1, 0xdf, 0x00, 0x00, 0x00, 0xff, 0xff, 0x75, 0x80, 0x6f, 0x2e, 0xee, 0x03, 0x00, 0x00,
 }
-
-// Reference imports to suppress errors if they are not otherwise used.
-var _ = io.EOF
-var _ context.Context
-var _ giraffe_micro.Client
-
-// This is a compile-time assertion to ensure that this generated file
-// is compatible with the grpc package it is being compiled against.
-const _ = giraffe_micro.SupportPackageIsVersion3 // please upgrade the giraffe_micro package
-
-// Client is the client API for instances service.
-//
-// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type Client interface {
-	GetInstance(ctx context.Context, in *InstanceID) (*types.Struct, error)
-	CreateInstance(ctx context.Context, in *Instance) (*InstanceID, error)
-	DeleteInstance(ctx context.Context, in *InstanceID) (*types.Empty, error)
-}
-
-type client struct {
-	c giraffe_micro.Client
-}
-
-func NewClient(c giraffe_micro.Client) Client {
-	return &client{
-		c: c,
-	}
-}
-
-func (c *client) GetInstance(ctx context.Context, in *InstanceID) (*types.Struct, error) {
-	out := new(types.Struct)
-	err := c.c.Invoke(ctx, _GetInstanceContract, in, out)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *client) CreateInstance(ctx context.Context, in *Instance) (*InstanceID, error) {
-	out := new(InstanceID)
-	err := c.c.Invoke(ctx, _CreateInstanceContract, in, out)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *client) DeleteInstance(ctx context.Context, in *InstanceID) (*types.Empty, error) {
-	out := new(types.Empty)
-	err := c.c.Invoke(ctx, _DeleteInstanceContract, in, out)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-// Service is the server API for instances service.
-type Service interface {
-	GetInstance(context.Context, *InstanceID) (*types.Struct, error)
-	CreateInstance(context.Context, *Instance) (*InstanceID, error)
-	DeleteInstance(context.Context, *InstanceID) (*types.Empty, error)
-}
-
-func _GetInstanceEndpoint(s Service) giraffe_micro.UnaryEndpoint {
-	return func(ctx context.Context, req interface{}) (interface{}, error) {
-		return s.GetInstance(ctx, req.(*InstanceID))
-	}
-}
-
-func _CreateInstanceEndpoint(s Service) giraffe_micro.UnaryEndpoint {
-	return func(ctx context.Context, req interface{}) (interface{}, error) {
-		return s.CreateInstance(ctx, req.(*Instance))
-	}
-}
-
-func _DeleteInstanceEndpoint(s Service) giraffe_micro.UnaryEndpoint {
-	return func(ctx context.Context, req interface{}) (interface{}, error) {
-		return s.DeleteInstance(ctx, req.(*InstanceID))
-	}
-}
-
-func RegisterService(s giraffe_micro.Server, srv Service) {
-	s.RegisterUnaryEndpoint(_GetInstanceContract, _GetInstanceEndpoint(srv))
-	s.RegisterUnaryEndpoint(_CreateInstanceContract, _CreateInstanceEndpoint(srv))
-	s.RegisterUnaryEndpoint(_DeleteInstanceContract, _DeleteInstanceEndpoint(srv))
-}
-
-// API Contract
-var _GetInstanceContract = &getInstanceContract{}
-
-type getInstanceContract struct{}
-
-func (*getInstanceContract) ServiceName() string          { return "instances.rpc" }
-func (*getInstanceContract) MethodName() string           { return "GetInstance" }
-func (*getInstanceContract) RequestMessage() interface{}  { return new(InstanceID) }
-func (*getInstanceContract) ResponseMessage() interface{} { return new(InstanceID) }
-func (*getInstanceContract) ContractName() string         { return "/instance.rpc/GetInstance" }
-func (*getInstanceContract) ContractVersion() string      { return "V1.0" }
-func (*getInstanceContract) Pattern() (string, string) {
-	return "GET", "/object/:object_id/instance/:instance_id"
-}
-func (*getInstanceContract) Body() string { return "" }
-
-var _CreateInstanceContract = &createInstanceContract{}
-
-type createInstanceContract struct{}
-
-func (*createInstanceContract) ServiceName() string          { return "instances.rpc" }
-func (*createInstanceContract) MethodName() string           { return "CreateInstance" }
-func (*createInstanceContract) RequestMessage() interface{}  { return new(Instance) }
-func (*createInstanceContract) ResponseMessage() interface{} { return new(Instance) }
-func (*createInstanceContract) ContractName() string         { return "/instance.rpc/CreateInstance" }
-func (*createInstanceContract) ContractVersion() string      { return "V1.0" }
-func (*createInstanceContract) Pattern() (string, string) {
-	return "POST", "/object/:object_id/instance"
-}
-func (*createInstanceContract) Body() string { return "data" }
-
-var _DeleteInstanceContract = &deleteInstanceContract{}
-
-type deleteInstanceContract struct{}
-
-func (*deleteInstanceContract) ServiceName() string          { return "instances.rpc" }
-func (*deleteInstanceContract) MethodName() string           { return "DeleteInstance" }
-func (*deleteInstanceContract) RequestMessage() interface{}  { return new(InstanceID) }
-func (*deleteInstanceContract) ResponseMessage() interface{} { return new(InstanceID) }
-func (*deleteInstanceContract) ContractName() string         { return "/instance.rpc/DeleteInstance" }
-func (*deleteInstanceContract) ContractVersion() string      { return "V1.0" }
-func (*deleteInstanceContract) Pattern() (string, string) {
-	return "DELETE", "/object/:object_id/instance/:instance_id"
-}
-func (*deleteInstanceContract) Body() string { return "" }

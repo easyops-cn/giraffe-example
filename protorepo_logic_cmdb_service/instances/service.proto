@@ -1,15 +1,35 @@
 syntax = "proto3";
 
 package instances;
-import "message.proto";
-import "github.com/easyops-cn/protobuf/giraffeproto/giraffe.proto";
+import "github.com/mwitkow/go-proto-validators/validator.proto";
+import "github.com/easyops-cn/go-proto-giraffe/giraffe.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/empty.proto";
+
+message InstanceID {
+    string _object_id = 1 [(validator.field) = {regex: ".*"}];
+    string instance_id = 2 [(validator.field) = {regex: ".*"}];
+    int32 version = 3;
+}
+
+message Instance {
+    string object_id = 1 [(validator.field) = {regex: ".*"}];
+    google.protobuf.Struct data = 2 [(validator.field) = {msg_exists : true}];
+}
+
+message SkipLimit {
+    int32 skip = 1 [(validator.field) = {int_gt: 0 int_lt: 3000}];
+    int32 limit = 2 [(validator.field) = {int_gt: 0 int_lt: 100}];
+}
+
+message Count {
+    int32 count = 1;
+}
 
 service rpc {
     rpc GetInstance(InstanceID) returns (google.protobuf.Struct) {
         option( giraffeproto.http ) = {
-            get: "/object/:object_id/instance/:instance_id"
+            get: "/object/:_object_id/instance/:instance_id"
         };
         option( giraffeproto.contract ) = {
             name: "/instance.rpc/GetInstance"
@@ -28,7 +48,7 @@ service rpc {
     };
     rpc DeleteInstance(InstanceID) returns (google.protobuf.Empty) {
         option( giraffeproto.http ) = {
-            delete: "/object/:object_id/instance/:instance_id"
+            delete: "/object/:_object_id/instance/:instance_id"
         };
         option( giraffeproto.contract ) = {
             name: "/instance.rpc/DeleteInstance"

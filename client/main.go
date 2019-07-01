@@ -16,7 +16,7 @@ var instance = &instances.Instance{
 	ObjectId: "APP",
 	Data: &types.Struct{
 		Fields: map[string]*types.Value{
-			"name": {Kind: &types.Value_StringValue{StringValue: "GiraffeApp5"}},
+			"name": {Kind: &types.Value_StringValue{StringValue: "GiraffeApp6"}},
 		},
 	},
 }
@@ -44,5 +44,5 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	fmt.Printf("CreateInstance success: object_id: %s, instance_id: %s\n", instanceID.GetObjectId(), instanceID.GetInstanceId())
+	fmt.Printf("CreateInstance success: object_id: %s, instance_id: %s\n", instanceID.GetXObjectId(), instanceID.GetInstanceId())
 }
