@@ -16,7 +16,7 @@ var instance = &instances.Instance{
 	ObjectId: "APP",
 	Data: &types.Struct{
 		Fields: map[string]*types.Value{
-			"name": {Kind: &types.Value_StringValue{StringValue: "GiraffeApp6"}},
+			"name": {Kind: &types.Value_StringValue{StringValue: "GiraffeApp7"}},
 		},
 	},
 }
@@ -44,5 +44,19 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	fmt.Printf("CreateInstance success: object_id: %s, instance_id: %s\n", instanceID.GetXObjectId(), instanceID.GetInstanceId())
+	fmt.Printf("CreateInstance succeed: object_id: %s, instance_id: %s\n", instanceID.GetXObjectId(), instanceID.GetInstanceId())
+
+	st, err := client.Instances.GetInstance(ctx, instanceID)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Printf("GetInstance succeed: instance name: %s\n", st.Fields["name"].GetStringValue())
+
+	_, err = client.Instances.DeleteInstance(ctx, instanceID)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Printf("DeleteInstance succeed: object_id: %s, instance_id: %s\n", instanceID.GetXObjectId(), instanceID.GetInstanceId())
 }
