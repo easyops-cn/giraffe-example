@@ -3,13 +3,15 @@ package main
 import (
 	"context"
 	"fmt"
-	logic_cmdb_service "github.com/easyops-cn/giraffe-example/protorepo_logic_cmdb_service"
-	"github.com/easyops-cn/giraffe-example/protorepo_logic_cmdb_service/instances"
+	"time"
+
 	"github.com/easyops-cn/giraffe-micro/hack"
 	"github.com/easyops-cn/giraffe-micro/plugins/easyopsrest"
 	"github.com/easyops-cn/giraffe-micro/plugins/easyopsrest/auth"
 	"github.com/gogo/protobuf/types"
-	"time"
+
+	logic_cmdb_service "github.com/easyops-cn/giraffe-example/protorepo_logic_cmdb_service"
+	"github.com/easyops-cn/giraffe-example/protorepo_logic_cmdb_service/instances"
 )
 
 var instance = &instances.Instance{
@@ -26,7 +28,7 @@ func main() {
 	rest, err := easyopsrest.NewClient(
 		// 设置名字服务始终返回静态地址, 方便开发时测试
 		easyopsrest.WithNameService(hack.StaticAddress("192.168.100.162", 8079)),
-		easyopsrest.WithTimeout(time.Second * 60),
+		easyopsrest.WithTimeout(time.Second*60),
 	)
 	if err != nil {
 		fmt.Println(err)
